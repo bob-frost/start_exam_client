@@ -1,0 +1,39 @@
+{
+  "participants": [
+    {
+      "id": "3bb921c8-6b25-456b-9959-e81183f00a90",
+      "data": [
+        {
+          "key": "FirstName",
+          "value": "John"
+        },
+        {
+          "key": "LastName",
+          "value": "Doe"
+        },
+        {
+          "key": "79f1ad4b-0d60-402d-9d37-255f774745cd",
+          "value": "foo"
+        }
+      ],
+      "sessions": [
+        {
+          "id": "75858770-be57-42da-962e-2a961dcb8f76",
+          "testID": "cbcfa2e7-bc49-4f9d-81fd-8abc8c41a394",
+          "started": "2013-02-08T11:01:41Z",
+          "isFinished": true,
+          "elapsedTime": "01:00:11",
+          "score": 21.0,
+          "maxScore": 90.0,
+          "percent": 23.33
+        },
+        {
+          "id": "b5dcf0b3-0714-49b5-9a46-e85444eceb40",
+          "testID": "2eca1305-a99f-4f43-bdb9-ba93e5ca86af",
+          "started": "2013-02-09T11:58:09Z",
+          "isFinished": false
+        }
+      ]
+    }   
+  ]
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<RegisterParticipantsQuery xmlns="https://api.startexam.com/v1/xml">
+  <Center>my_center</Center>
+  <ValidFrom>2016-07-06T12:00:00Z</ValidFrom>
+  <ValidTill>2016-07-06T15:00:00Z</ValidTill>
+  <Test>81753199-0ff1-4a03-887f-8bcd90e706a0</Test>
+  <Participant>
+    <Data key="FirstName" value="John"/>
+    <Data key="LastName" value="Doe"/>
+    <Data key="79f1ad4b-0d60-402d-9d37-255f774745cd" value="foo"/>
+  </Participant>
+</RegisterParticipantsQuery>

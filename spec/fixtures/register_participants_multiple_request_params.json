@@ -1,0 +1,21 @@
+{
+  "center": "my_center",
+  "valid_from": "2016-07-06T12:00:00Z",
+  "valid_till": "2016-07-06T15:00:00Z",
+  "tests": [
+    "81753199-0ff1-4a03-887f-8bcd90e706a0",
+    "3e29e5d9-ac3e-4fc2-aef9-f2c74962e614"
+  ],
+  "participants": [
+    {
+      "FirstName": "John",
+      "LastName": "Doe",
+      "79f1ad4b-0d60-402d-9d37-255f774745cd": "foo"
+    },
+    {
+      "FirstName": "Judy",
+      "LastName": "Doe",
+      "433076d8-0d91-4f0a-979c-e6c551edc4df": "bar"
+    }
+  ]
+}
