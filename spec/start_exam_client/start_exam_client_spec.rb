@@ -21,7 +21,7 @@ describe StartExamClient do
       expected = "SharedKey #{ account_id }:#{ signature }"
       received = StartExamClient.authorization_header account_id, secret_key, method, path, time, body
 
-      expect(received).to eq(received)
+      expect(received).to eq(expected)
     end
   end
 
