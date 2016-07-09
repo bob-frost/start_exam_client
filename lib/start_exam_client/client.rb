@@ -29,16 +29,18 @@ module StartExamClient
 
     private
 
-    def normalize_request_params(params)
-      case params
+    def normalize_request_params(param)
+      case param
       when Hash
-        params.inject({}) { |result, (k, v)| result.merge k.to_sym => normalize_request_params(v) }
+        param.inject({}) { |result, (k, v)| result.merge k.to_sym => normalize_request_params(v) }
       when Array
-        params.map { |v| normalize_request_params v }
-      when Date, Time
-        params.utc.iso8601
+        param.map { |v| normalize_request_params v }
+      when Time
+        param.utc.iso8601
+      when Date
+        param.strftime '%d.%m.%Y'
       else
-        params
+        param
       end
     end
 

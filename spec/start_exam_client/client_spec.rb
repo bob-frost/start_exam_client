@@ -62,7 +62,7 @@ describe StartExamClient::Client do
       expect(WebMock).to have_requested(:get, url).with(query: expected_query)
     end
 
-    it 'sends Time objects in UTC/ISO8601' do
+    it 'sends Time objects in required format' do
       from = Time.now
       to = Time.now
       expected_query = { from: from.utc.iso8601, to: to.utc.iso8601 }
@@ -126,6 +126,27 @@ describe StartExamClient::Client do
       client.register_participants params
 
       expect(WebMock).to have_requested(:post, url).with { |request| request.body.gsub(/\n\s*/, '') == expected_body }
+    end
+
+    it 'sends Time objects in required format' do
+      valid_from = Time.now
+      valid_till = Time.now
+      params = { valid_from: valid_from, valid_till: valid_till }
+      expected_xml1 = "<ValidFrom>#{ valid_from.utc.iso8601 }</ValidFrom>"
+      expected_xml2 = "<ValidTill>#{ valid_till.utc.iso8601 }</ValidTill>"
+      client.register_participants params
+
+      expect(WebMock).to have_requested(:post, url)
+        .with { |request| request.body.include?(expected_xml1) && request.body.include?(expected_xml2) }
+    end
+
+    it 'sends Date objects in required format' do
+      birthdate = Date.today
+      params = { participants: [{ BirthDate: birthdate }] }
+      expected_xml = "<Data key=\"BirthDate\" value=\"#{ birthdate.strftime '%d.%m.%Y' }\"/>"
+      client.register_participants params
+
+      expect(WebMock).to have_requested(:post, url).with { |request| request.body.include? expected_xml }
     end
 
     it 'returns HTTParty response' do
