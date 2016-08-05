@@ -80,6 +80,30 @@ describe StartExamClient::Client do
     end
   end
 
+  describe '#session_report' do
+    let(:url) { "#{ base_api_url }/session" }
+    let(:session_id) { rand 1..10 }
+
+    before do
+      stub_request(:any, url).with(query: hash_including({}))
+    end
+
+    it 'sends request to API' do
+      expected_query = { sessionId: session_id }
+      client.session_report session_id
+
+      expect(WebMock).to have_requested(:get, url).with(query: expected_query)
+    end
+
+    it 'returns HTTParty response' do
+      body = Spec::Helpers.fixture('session_report_response.json')
+      stub_request(:get, url).with(query: { sessionId: session_id }).to_return(body: body)
+      response = client.session_report session_id
+
+      expect(response.body).to eq(body)
+    end
+  end
+
   describe '#register_participants' do
     let(:url) { "#{ base_api_url }/participants" }
 

@@ -1,0 +1,45 @@
+{
+  "sessionID": "8b948bec-6398-4e80-bc3f-0c3d523b7af7",
+  "testID": "9fd91753-7382-438d-9337-915d7a7fd4f2",
+  "participantID": "510f0ea3-f737-4b32-923a-69d66f3e98c2",
+  "started": "2016-07-09T20:08:19Z",
+  "isFinished": true,
+  "elapsedTime": "00:12:31",
+  "score": 4.0,
+  "maxScore": 7.0,
+  "percent": 57.14,
+  "scaleLevel": "Medium",
+  "outcomes": [
+    {
+      "id": 914,
+      "score": 1.0,
+      "max": 1.0,
+      "name": "Custom Scale",
+      "level": "high"
+    }
+  ],
+  "participantData": [
+    {
+      "key": "LastName",
+      "value": "Doe"
+    },
+    {
+      "key": "FirstName",
+      "value": "John"
+    }
+  ],
+  "sections": [
+    {
+      "title": "Section #1 Title",
+      "score": 2.0,
+      "max": 2.0,
+      "level": "passed"
+    },
+    {
+      "title": "Section #2 Title",
+      "score": 2.0,
+      "max": 5.0,
+      "level": "not passed"
+    }
+  ]
+}

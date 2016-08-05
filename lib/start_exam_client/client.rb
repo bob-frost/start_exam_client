@@ -21,6 +21,11 @@ module StartExamClient
       response = json_request :get, 'participants', params
     end
 
+    def session_report(session_id)
+      params = { sessionId: session_id }
+      response = json_request :get, 'session', params
+    end
+
     def register_participants(params = {})
       params = normalize_request_params params
       xml = register_participants_xml params
