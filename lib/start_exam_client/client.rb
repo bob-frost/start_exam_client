@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'httparty'
 require 'nokogiri'
+require 'start_exam_client/errors'
 require 'start_exam_client/util'
 
 module StartExamClient
@@ -18,18 +19,33 @@ module StartExamClient
     def participant_results(params = {})
       params = normalize_request_params params
       params[:participant_id] ||= params.delete(:participant_ids).join(',') if params[:participant_ids].is_a?(Array)
-      response = json_request :get, 'participants', params
+      json_request :get, 'participants', params
+    end
+
+    def participant_results!(*args)
+      response = participant_results *args
+      response.success? ? response : (raise StartExamClient::ResponseError.new(response))
     end
 
     def session_report(session_id)
       params = { sessionId: session_id }
-      response = json_request :get, 'session', params
+      json_request :get, 'session', params
+    end
+
+    def session_report!(*args)
+      response = session_report *args
+      response.success? ? response : (raise StartExamClient::ResponseError.new(response))
     end
 
     def register_participants(params = {})
       params = normalize_request_params params
       xml = register_participants_xml params
       response = xml_request :post, 'participants', xml
+    end
+
+    def register_participants!(*args)
+      response = register_participants *args
+      response.success? ? response : (raise StartExamClient::ResponseError.new(response))
     end
 
     private

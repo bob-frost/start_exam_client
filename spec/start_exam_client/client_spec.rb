@@ -78,6 +78,60 @@ describe StartExamClient::Client do
 
       expect(response.body).to eq(body)
     end
+
+    context 'on 5xx response' do
+      before do
+        stub_request(:get, url).to_return(body: 'Internal server error', status: 500)
+      end
+
+      it 'returns HTTParty response' do
+        response = client.participant_results
+
+        expect(response.code).to eq(500)
+        expect(response.body).to eq('Internal server error')
+      end
+    end
+
+    context 'on 4xx response' do
+      before do
+        stub_request(:get, url).to_return(body: { error: 'msg' }.to_json, headers: { 'Content-Type' => 'application/json' }, status: 400)
+      end
+
+      it 'returns HTTParty response' do
+        response = client.participant_results
+
+        expect(response.code).to eq(400)
+        expect(response.parsed_response).to eq({ 'error' => 'msg' })
+      end
+    end
+  end
+
+  describe '#participant_results!' do
+    let(:url) { "#{ base_api_url }/participants" }
+
+    context 'on 5xx response' do
+      before do
+        stub_request(:get, url).to_return(body: 'Internal server error', status: 500)
+      end
+
+      it 'raises StartExamClient::ResponseError' do
+        expect do
+          response = client.participant_results!
+        end.to raise_error(StartExamClient::ResponseError)
+      end
+    end
+
+    context 'on 4xx response' do
+      before do
+        stub_request(:get, url).to_return(body: { error: 'msg' }.to_json, headers: { 'Content-Type' => 'application/json' }, status: 400)
+      end
+
+      it 'raises StartExamClient::ResponseError' do
+        expect do
+          response = client.participant_results!
+        end.to raise_error(StartExamClient::ResponseError)
+      end
+    end
   end
 
   describe '#session_report' do
@@ -101,6 +155,69 @@ describe StartExamClient::Client do
       response = client.session_report session_id
 
       expect(response.body).to eq(body)
+    end
+
+    context 'on 5xx response' do
+      before do
+        stub_request(:get, url)
+          .with(query: { sessionId: session_id })
+          .to_return(body: 'Internal server error', status: 500)
+      end
+
+      it 'returns HTTParty response' do
+        response = client.session_report session_id
+
+        expect(response.code).to eq(500)
+        expect(response.body).to eq('Internal server error')
+      end
+    end
+
+    context 'on 4xx response' do
+      before do
+        stub_request(:get, url)
+          .with(query: { sessionId: session_id })
+          .to_return(body: { error: 'msg' }.to_json, headers: { 'Content-Type' => 'application/json' }, status: 400)
+      end
+
+      it 'returns HTTParty response' do
+        response = client.session_report session_id
+
+        expect(response.code).to eq(400)
+        expect(response.parsed_response).to eq({ 'error' => 'msg' })
+      end
+    end
+  end
+
+  describe '#session_report!' do
+    let(:url) { "#{ base_api_url }/session" }
+    let(:session_id) { rand 1..10 }
+
+    context 'on 5xx response' do
+      before do
+        stub_request(:get, url)
+          .with(query: { sessionId: session_id })
+          .to_return(body: 'Internal server error', status: 500)
+      end
+
+      it 'raises StartExamClient::ResponseError' do
+        expect do
+          response = client.session_report! session_id
+        end.to raise_error(StartExamClient::ResponseError)
+      end
+    end
+
+    context 'on 4xx response' do
+      before do
+        stub_request(:get, url)
+          .with(query: { sessionId: session_id })
+          .to_return(body: { error: 'msg' }.to_json, headers: { 'Content-Type' => 'application/json' }, status: 400)
+      end
+
+      it 'raises StartExamClient::ResponseError' do
+        expect do
+          response = client.session_report! session_id
+        end.to raise_error(StartExamClient::ResponseError)
+      end
     end
   end
 
@@ -179,6 +296,60 @@ describe StartExamClient::Client do
       response = client.register_participants({})
 
       expect(response.body).to eq(body)
+    end
+
+    context 'on 5xx response' do
+      before do
+        stub_request(:post, url).to_return(body: 'Internal server error', status: 500)
+      end
+
+      it 'returns HTTParty response' do
+        response = client.register_participants({})
+
+        expect(response.code).to eq(500)
+        expect(response.body).to eq('Internal server error')
+      end
+    end
+
+    context 'on 4xx response' do
+      before do
+        stub_request(:post, url).to_return(body: { error: 'msg' }.to_json, headers: { 'Content-Type' => 'application/json' }, status: 400)
+      end
+
+      it 'returns HTTParty response' do
+        response = client.register_participants({})
+
+        expect(response.code).to eq(400)
+        expect(response.parsed_response).to eq({ 'error' => 'msg' })
+      end
+    end
+  end
+
+  describe '#register_participants!' do
+    let(:url) { "#{ base_api_url }/participants" }
+
+    context 'on 5xx response' do
+      before do
+        stub_request(:post, url).to_return(body: 'Internal server error', status: 500)
+      end
+
+      it 'raises StartExamClient::ResponseError' do
+        expect do
+          response = client.register_participants!({})
+        end.to raise_error(StartExamClient::ResponseError)
+      end
+    end
+
+    context 'on 4xx response' do
+      before do
+        stub_request(:post, url).to_return(body: { error: 'msg' }.to_json, headers: { 'Content-Type' => 'application/json' }, status: 400)
+      end
+
+      it 'raises StartExamClient::ResponseError' do
+        expect do
+          response = client.register_participants!({})
+        end.to raise_error(StartExamClient::ResponseError)
+      end
     end
   end
 end
